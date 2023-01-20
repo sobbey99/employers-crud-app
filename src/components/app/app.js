@@ -16,9 +16,9 @@ class App extends Component {
         {name: 'John C.' ,salary: 800, increase: false ,  rise:true,  id: 1},
         {name: 'Alex M.' ,salary: 3000, increase: true ,  rise:false, id: 2},
         {name: 'Carl W.' ,salary: 15000, increase: false, rise:false, id: 3},
-        {name: 'Mike F.' ,salary: 1000, increase: false,  rise:false, id: 4},
             ]
         }
+        this.maxId = 4;
     }
 
     deleteItem = (id) => {
@@ -37,6 +37,23 @@ class App extends Component {
 
         })
     }
+
+    addItem = (name, salary) => {
+        const newItem = {
+            name, 
+            salary,
+            increase: false,
+            id: this.maxId++
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
+    }
+
+
 
     onToggleProp = (id, prop) => {
         //METHOD 1 FOR UPDATING STATE
@@ -82,7 +99,7 @@ class App extends Component {
                 onToggleProp={this.onToggleProp}
                 />
     
-                <EmployersAddForm />
+                <EmployersAddForm onAdd={this.addItem}/>
             </div>
         );
     }
